@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-5 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0 title-accent"><i class="bi bi-plus-circle"></i> Adicionar Novo Carro</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('main.add_car') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Marca</label>
+                        <input type="text" name="brand" class="form-control" required placeholder="Ex: Chevrolet">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Modelo</label>
+                        <input type="text" name="model" class="form-control" required placeholder="Ex: Camaro SS">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kilometragem</label>
+                            <input type="number" name="mileage" class="form-control" placeholder="Km Rodados">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Potência (HP)</label>
+                            <input type="number" name="horsepower" class="form-control" placeholder="Cavalos de Potência">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Localização</label>
+                        <input type="text" name="location" class="form-control" placeholder="Cidade/Estado">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Modificações</label>
+                        <textarea name="modifications" class="form-control" rows="2" placeholder="Turbo, rebaixamento, etc."></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Foto do Veículo</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success fw-bold">Cadastrar Veiculo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h2 class="mb-3 border-bottom pb-2 title-accent">Minha Garagem </h2>
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+        {% for car in cars %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if car.photo %}
+                        <img src="{{ url_for('static', filename='uploads/' + car.photo) }}" class="card-img-top" style="height: 150px; object-fit: cover;" alt="foto">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold"><a href="{{ url_for('main.car_detail', id=car.id) }}">{{ car.brand }} {{ car.model }}</a></h5>
+                        <ul class="list-unstyled mb-0 text-soft">
+                            <li>HP: {{ car.horsepower }}</li>
+                            <li>Km: {{ car.mileage }}</li>
+                            <li>Avaliacao: {{ "%.2f"|format(car.visual_rating) }}</li>
+                        </ul>
+                        <div class="mt-3">
+                            <form action="{{ url_for('main.delete_car', id=car.id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Apagar Carro</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center w-100">
+                    <p class="mb-0">Você ainda não cadastrou nenhum carro.</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="mt-5">
+            <h2 class="mb-3 border-bottom pb-2 title-accent">Pedidos de passeio</h2>
+            {% if ride_requests %}
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead>
+                            <tr>
+                                <th>Solicitante</th>
+                                <th>Carro</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Mensagem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ride in ride_requests %}
+                            <tr>
+                                <td>{{ ride.requester.username }}</td>
+                                <td>{{ ride.car.brand }} {{ ride.car.model }}</td>
+                                <td>{{ ride.ride_date }}</td>
+                                <td>{{ ride.status }}</td>
+                                <td>{{ ride.message or 'Sem mensagem' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center w-100">
+                    <p class="mb-0">Nenhum pedido de passeio ainda.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if current_user.is_authenticated and current_user.username == 'admin' %}
+        <div class="mt-5">
+            <h2 class="mb-3 border-bottom pb-2 title-accent">Gerenciar Veiculos</h2>
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+            {% for car in all_cars or [] %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        {% if car.photo %}
+                            <img src="{{ url_for('static', filename='uploads/' + car.photo) }}" class="card-img-top" style="height: 150px; object-fit: cover;" alt="foto">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold"><a href="{{ url_for('main.car_detail', id=car.id) }}">{{ car.brand }} {{ car.model }}</a></h5>
+                            <ul class="list-unstyled mb-0 text-soft">
+                                <li>HP: {{ car.horsepower }}</li>
+                                <li>Km: {{ car.mileage }}</li>
+                                <li>Avaliacao: {{ "%.2f"|format(car.visual_rating) }}</li>
+                            </ul>
+                            <div class="mt-3 d-flex gap-2 align-items-center">
+                                <form action="{{ url_for('main.delete_car', id=car.id) }}" method="POST" class="d-flex gap-2 align-items-center">
+                                    <input type="password" name="admin_password" class="form-control form-control-sm" placeholder="Senha admin" required>
+                                    <button type="submit" class="btn btn-danger btn-sm">Apagar Carro</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center w-100">
+                        <p class="mb-0">Nao ha carros cadastrados.</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

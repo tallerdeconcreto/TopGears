@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h1 class="display-4 fw-bold garage-title">Garagem Principal</h1>
+        <p class="lead text-soft">Explore, avalie e descubra os melhores carros da comunidade!</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for car in cars %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            {% if car.photo %}
+                <img src="{{ url_for('static', filename='uploads/' + car.photo) }}" class="card-img-top car-photo" alt="{{ car.model }}">
+            {% else %}
+                <div class="surface-muted text-white d-flex align-items-center justify-content-center car-photo">
+                    <span>Sem Foto</span>
+                </div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-center"><a href="{{ url_for('main.car_detail', id=car.id) }}" class="text-decoration-none fw-bold">{{ car.brand }} {{ car.model }}</a></h5>
+                <hr>
+                <div class="d-flex justify-content-between mb-3 text-soft">
+                    <span><i class="bi bi-speedometer2"></i> {{ car.horsepower }} HP</span>
+                    <span>{{ "%.2f"|format(car.visual_rating) }} ({{ car.rating_count }})</span>
+                </div>
+                
+                <div class="mt-auto">
+                    {% if current_user.is_authenticated %}
+                    <form action="{{ url_for('main.rate_car_form', id=car.id) }}" method="POST" class="d-flex gap-2">
+                        <select name="rating" class="form-select form-select-sm" required>
+                            <option value="" disabled selected>Nota (1-5)</option>
+                            <option value="1">1 (Feio)</option>
+                            <option value="2">2</option>
+                            <option value="3">3 (Normal)</option>
+                            <option value="4">4</option>
+                            <option value="5">5 (Lindo)</option>
+                        </select>
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Avaliar</button>
+                    </form>
+                    {% else %}
+                    <div class="text-center">
+                        <small class="text-soft"><a class="link-quiet" href="{{ url_for('main.login') }}">Faca login</a> para avaliar</small>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="text-center mt-2">
+                        <a href="{{ url_for('main.car_detail', id=car.id) }}" class="btn btn-dark btn-sm w-100">Ver Ficha Completa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

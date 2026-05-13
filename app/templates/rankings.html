@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold section-title">Top Rankings Oficiais</h1>
+    <p class="lead text-soft">Nossas maquinas separadas e coroadas por sua performance e estetica.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <h2 class="fw-bold section-title border-bottom pb-2 text-center mb-4">Mais Rapidos (HP)</h2>
+        <div class="list-group shadow">
+        {% for car in fastest %}
+            <a href="{{ url_for('main.car_detail', id=car.id) }}" class="list-group-item list-group-item-action d-flex align-items-center mb-2 border rounded">
+                <span class="fs-4 text-secondary fw-bold me-3">#{{ loop.index }}</span>
+                {% if car.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + car.photo) }}" class="rounded" width="80" height="60" style="object-fit: cover;" alt="foto">
+                {% else %}
+                    <div class="surface-muted rounded text-white d-flex align-items-center justify-content-center" style="width: 80px; height: 60px; font-size: 0.7em;">Sem Foto</div>
+                {% endif %}
+                
+                <div class="ms-3 flex-grow-1">
+                    <h5 class="mb-0 fw-bold">{{ car.brand }} {{ car.model }}</h5>
+                    <small class="text-soft">Acelerando no sistema</small>
+                </div>
+                <span class="badge rank-pill rounded-pill fs-5 shadow">{{ car.horsepower }} HP</span>
+            </a>
+        {% else %}
+            <div class="alert alert-light text-center">Nenhum carro cadastrado.</div>
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <h2 class="fw-bold section-title border-bottom pb-2 text-center mb-4">Mais Bonitos</h2>
+        <div class="list-group shadow">
+        {% for car in toprated %}
+            <a href="{{ url_for('main.car_detail', id=car.id) }}" class="list-group-item list-group-item-action d-flex align-items-center mb-2 border rounded">
+                <span class="fs-4 text-secondary fw-bold me-3">#{{ loop.index }}</span>
+                {% if car.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + car.photo) }}" class="rounded" width="80" height="60" style="object-fit: cover;" alt="foto">
+                {% else %}
+                    <div class="surface-muted rounded text-white d-flex align-items-center justify-content-center" style="width: 80px; height: 60px; font-size: 0.7em;">Sem Foto</div>
+                {% endif %}
+                
+                <div class="ms-3 flex-grow-1">
+                    <h5 class="mb-0 fw-bold">{{ car.brand }} {{ car.model }}</h5>
+                    <small class="text-soft">{{ car.rating_count }} Avaliacoes</small>
+                </div>
+                <span class="badge rank-pill text-dark rounded-pill fs-5 shadow">Nota: {{ "%.2f"|format(car.visual_rating) }}</span>
+            </a>
+        {% else %}
+            <div class="alert alert-light text-center">Nenhum carro cadastrado.</div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

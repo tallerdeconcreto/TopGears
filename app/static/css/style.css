@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Space+Grotesk:wght@400;500;600&display=swap");
+
+:root {
+    --gray-950: #141418;
+    --gray-900: #1b1b22;
+    --gray-850: #242430;
+    --gray-800: #2c2c3a;
+    --gray-700: #343446;
+    --gray-600: #42425a;
+    --purple-900: #2a0f36;
+    --purple-700: #4a275e;
+    --purple-600: #61407a;
+    --purple-400: #8c73a8;
+    --purple-200: #c5b0db;
+    --white-soft: #f2f0f7;
+    --white-muted: #cfc9dc;
+    --accent-glow: rgba(140, 115, 168, 0.25);
+    --font-body: "Space Grotesk", "Segoe UI", sans-serif;
+    --font-heading: "Playfair Display", serif;
+    --text-xs: 0.875rem;
+    --text-sm: 0.95rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.35rem;
+    --text-2xl: 1.6rem;
+    --text-3xl: 2rem;
+    --text-4xl: 2.6rem;
+    --leading-tight: 1.15;
+    --leading-snug: 1.3;
+    --leading-normal: 1.55;
+}
+
+body {
+    background: radial-gradient(1200px 600px at 20% -10%, rgba(97, 64, 122, 0.35), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(74, 39, 94, 0.28), transparent 55%),
+        linear-gradient(160deg, var(--gray-950), var(--gray-900));
+    color: var(--white-soft);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    letter-spacing: 0.1px;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: var(--leading-tight);
+    letter-spacing: 0.2px;
+    color: var(--white-soft);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+p, li, td, th, label, input, textarea, select, small {
+    font-size: var(--text-base);
+}
+
+small,
+.small,
+.text-muted {
+    font-size: var(--text-sm);
+}
+
+.garage-title {
+    background: linear-gradient(135deg, var(--purple-900), var(--gray-900));
+    color: var(--white-soft);
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid var(--purple-600);
+    border-radius: 12px;
+    box-shadow: 0 18px 35px -30px var(--accent-glow);
+    font-family: var(--font-heading);
+}
+
+a {
+    color: var(--purple-200);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--white-soft);
+}
+
+.navbar {
+    background-color: rgba(27, 27, 34, 0.92) !important;
+    border-bottom: 1px solid rgba(140, 115, 168, 0.35);
+    backdrop-filter: blur(8px);
+}
+
+.card {
+    background-color: var(--gray-850);
+    border: 1px solid rgba(140, 115, 168, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 18px 45px -35px var(--accent-glow) !important;
+}
+
+.card-header,
+.card-footer {
+    background-color: rgba(52, 52, 70, 0.9);
+    border-radius: 16px 16px 0 0 !important;
+}
+
+button,
+.btn {
+    background-color: var(--purple-700) !important;
+    border: 1px solid var(--purple-400) !important;
+    border-radius: 999px !important;
+    color: var(--white-soft) !important;
+    box-shadow: 0 12px 30px -20px var(--accent-glow) !important;
+}
+
+button:hover,
+.btn:hover {
+    background-color: var(--purple-600) !important;
+    border-color: var(--purple-200) !important;
+}
+
+input,
+select,
+textarea {
+    background-color: rgba(66, 66, 90, 0.7) !important;
+    border: 1px solid rgba(140, 115, 168, 0.4) !important;
+    border-radius: 12px !important;
+    color: var(--white-soft) !important;
+    box-shadow: none !important;
+}
+
+table {
+    background-color: var(--gray-850);
+    border: 1px solid rgba(140, 115, 168, 0.35);
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid rgba(140, 115, 168, 0.2);
+    padding: 10px 12px;
+}
+
+.badge,
+.alert {
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+.alert-info,
+.alert-light {
+    background-color: rgba(36, 36, 48, 0.85) !important;
+    border: 1px solid rgba(140, 115, 168, 0.3) !important;
+    color: var(--white-soft) !important;
+}
+
+.content-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.car-photo {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    border-radius: 14px;
+}
+
+.car-photo-large {
+    object-fit: cover;
+    max-height: 420px;
+    width: 100%;
+    border-radius: 18px;
+}
+
+.surface-panel {
+    background: rgba(36, 36, 48, 0.92);
+    border: 1px solid rgba(140, 115, 168, 0.3);
+    border-radius: 18px;
+}
+
+.surface-muted {
+    background: rgba(36, 36, 48, 0.55);
+    border: 1px dashed rgba(140, 115, 168, 0.35);
+}
+
+.title-accent {
+    font-family: var(--font-heading);
+    color: var(--white-soft);
+}
+
+.text-soft {
+    color: var(--white-muted) !important;
+}
+
+.link-quiet {
+    color: var(--white-muted);
+}
+
+.link-quiet:hover {
+    color: var(--white-soft);
+}
+
+.list-group-item {
+    background-color: rgba(36, 36, 48, 0.9);
+    border: 1px solid rgba(140, 115, 168, 0.25);
+    color: var(--white-soft);
+}
+
+.rank-pill {
+    background-color: rgba(97, 64, 122, 0.4) !important;
+    color: var(--white-soft) !important;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    letter-spacing: 0.4px;
+}
+
+.card-title a {
+    color: var(--white-soft);
+}
+
+.card-title a:hover {
+    color: var(--purple-200);
+}
+
+.label-soft {
+    color: #e7ddf5;
+}
+.form-label {
+    color: #e7ddf5;
+}
+.placeholder {
+    color: #a58bc9;
+}

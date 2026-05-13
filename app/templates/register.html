@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header text-center">
+                <h2 class="mb-0 title-accent">Criar Nova Conta</h2>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Escolha um Usuário</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Crie uma Senha</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Localizacao</label>
+                        <input type="text" name="location" class="form-control" placeholder="Cidade/Estado">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg">Realizar Cadastro</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3">
+                Ja possui conta? <a href="{{ url_for('main.login') }}" class="text-decoration-none fw-bold">Faca login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

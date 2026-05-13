@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="display-5 fw-bold section-title">Usuarios e Carros</h1>
+    <p class="text-soft">Acesso exclusivo do admin</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 g-3">
+{% for user in users %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">{{ user.username }}</h5>
+                <p class="text-soft mb-2">Localizacao: {{ user.location or 'Nao informada' }}</p>
+                <p class="text-soft mb-3">Carros cadastrados: {{ user.cars.count() }}</p>
+                <ul class="list-unstyled mb-0 text-soft">
+                {% for car in user.cars %}
+                    <li>{{ car.brand }} {{ car.model }} ({{ car.horsepower }} HP)</li>
+                {% else %}
+                    <li>Nenhum carro cadastrado.</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="col-12">
+        <div class="alert alert-info text-center w-100">
+            <p class="mb-0">Nao ha usuarios cadastrados.</p>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
